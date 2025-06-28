@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "fastify start -P -w -l debug ./src/server.ts -p 3000"
+  },
+  "dependencies": {
+    "@fastify/postgres": "^6.0.2",
+    "dotenv": "^17.0.0",
+    "fastify": "^5.4.0",
+    "fastify-cli": "^7.4.0",
+    "pg": "^8.16.3",
+    "postgrator": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.7",
+    "typescript": "^5.8.3"
+  }
+}
