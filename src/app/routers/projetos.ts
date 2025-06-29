@@ -21,6 +21,13 @@ const routes: FastifyPluginAsync = async (app: FastifyInstance, opts) => {
         schema: listarProjetosSchema,
         handler: listarProjetos
     });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: "POST",
+        url: "/projetos",
+        schema: criarProjetoSchema,
+        handler: cadastrarProjeto
+    })
 };
 
 export default routes;

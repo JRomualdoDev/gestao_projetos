@@ -1,5 +1,5 @@
 
-import { listarTodosProjetos } from "../services/projetoService.ts"
+import { criarProjeto, listarTodosProjetos } from "../services/projetoService.ts"
 
 export async function listarProjetos(request: any, reply: any) {
     const projetos = await listarTodosProjetos()
@@ -7,5 +7,6 @@ export async function listarProjetos(request: any, reply: any) {
 }
 
 export async function cadastrarProjeto(request: any, reply: any) {
-
+    const projetos = await criarProjeto(request, reply)
+    return reply.send(projetos)
 }

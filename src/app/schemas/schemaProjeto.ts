@@ -1,16 +1,13 @@
-import z from "zod"
+import { z } from "zod"
 
 export const criarProjetoSchema = {
-    querystring: z.object({
-        name: z.string().min(4).max(100),
-        description: z.string().min(10).max(500)
+    body: z.object({
+        name: z.string().min(4).max(100).describe("Name Project"),
+        description: z.string().min(10).max(500).describe("Description Project")
     }),
     response: {
         201: z.object({
-            id: z.number(),
-            name: z.string(),
-            description: z.string(),
-            created_at: z.date()
+            success: z.boolean()
         })
     }
 }
