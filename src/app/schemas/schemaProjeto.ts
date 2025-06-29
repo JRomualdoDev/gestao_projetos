@@ -1,57 +1,27 @@
+import z from "zod"
+
 export const criarProjetoSchema = {
-    body: {
-        type: 'object',
-        required: ['name', 'description'],
-        properties: {
-            name: {
-                type: 'string',
-                minLength: 3,
-                maxLength: 100,
-                description: 'Nome do projeto'
-            },
-            description: {
-                type: 'string',
-                minLength: 10,
-                maxLength: 500,
-                description: 'Descrição do projeto'
-            }
-        },
-        additionalProperties: false
-    },
+    querystring: z.object({
+        name: z.string().min(4).max(100),
+        description: z.string().min(10).max(500)
+    }),
     response: {
-        201: {
-            type: 'object',
-            properties: {
-                id: { type: 'integer' },
-                name: { type: 'string' },
-                description: { type: 'string' },
-                created_at: { type: 'string', format: 'date-time' }
-            }
-        },
-        400: {
-            type: 'object',
-            properties: {
-                statusCode: { type: 'integer' },
-                error: { type: 'string' },
-                message: { type: 'string' }
-            }
-        }
+        201: z.object({
+            id: z.number(),
+            name: z.string(),
+            description: z.string(),
+            created_at: z.date()
+        })
     }
 }
 
 export const listarProjetosSchema = {
     response: {
-        200: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    id: { type: 'integer' },
-                    name: { type: 'string' },
-                    description: { type: 'string' },
-                    created_at: { type: 'string', format: 'date-time' }
-                }
-            }
-        }
+        200: z.array(z.object({
+            id: z.number(),
+            name: z.string(),
+            description: z.string(),
+            created_at: z.date()
+        }))
     }
 }
