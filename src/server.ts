@@ -1,24 +1,17 @@
-// const fastify = require('fastify')()
+import type { FastifyPluginAsync } from 'fastify'
+import routes from './app/routers/projetos.ts'
+import postgres from '../src/plugins/postgres.ts'
+import { setDb } from './config/database.ts'
 
-// fastify.register(require('@fastify/postgres'), {
-//     connectionString: process.env.DATABASE_URL
-// });
+const server: FastifyPluginAsync = async (fastify, options) => {
+    await fastify.register(routes)
 
-// // fastify.get('/', function(req, reply)) {
-// //     fastify.pg.query(
-// //         'SELECT id, username'
-// //     )
-// // }
+    fastify.register(postgres)
 
-// fastify.listen({ port: 3000 }, (err: any) => {
-//     if (err) throw err
-//     console.log(`server listening on ${fastify.server.address().port}`)
-// })
-// server.js
-'use strict'
-
-module.exports = async function (fastify: any, opts: any) {
-    fastify.get('/', async (request: any, reply: any) => {
-        return { hello: 'world' }
+    fastify.after(() => {
+        setDb(fastify)
     })
+
 }
+
+export default server
