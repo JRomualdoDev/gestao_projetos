@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { success } from "zod/v4"
 
 export const createTaskSchema = {
     body: z.object({
@@ -26,5 +27,25 @@ export const listTaskSchema = {
             priority: z.string(),
             created_at: z.date()
         }))
+    }
+}
+
+export const listTaskProjectIdSchema = {
+    params: z.object({
+        project_id: z.string().transform(Number)
+    }),
+    response: {
+        200: z.object({
+            success: z.string(),
+            result: z.array(z.object({
+                id: z.number(),
+                project_id: z.number(),
+                title: z.string(),
+                description: z.string(),
+                status: z.string(),
+                priority: z.string(),
+                created_at: z.date()
+            }))
+        })
     }
 }

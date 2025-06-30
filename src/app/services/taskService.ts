@@ -35,3 +35,25 @@ export async function newTask(req: any, reply: any) {
         client.release()
     }
 }
+
+export async function listTaskProjectId(req: any, reply: any) {
+
+    const project_id = req.params.project_id
+
+    const client = await db.connect()
+
+    try {
+        const result = await client.query('SELECT * FROM tasks WHERE project_id = $1 ORDER BY created_at DESC', [project_id])
+
+        return reply.status(200).send({
+            success: 'true',
+            result: result.rows
+        })
+    } catch (error) {
+        console.log(error)
+        return reply.status(500).send({ error: 'Erro interno do servidor' })
+    }
+    finally {
+        client.release()
+    }
+}

@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
-import { createTaskSchema, listTaskSchema } from "../schemas/schemaTask.ts";
-import { listTasks, createTask } from "../controllers/taskController.ts";
+import { createTaskSchema, listTaskProjectIdSchema, listTaskSchema } from "../schemas/schemaTask.ts";
+import { listTasks, createTask, listTaskProject_id } from "../controllers/taskController.ts";
 
 
 export default function tasksRoutes(app: FastifyInstance) {
@@ -17,5 +17,12 @@ export default function tasksRoutes(app: FastifyInstance) {
         url: "/tasks",
         schema: createTaskSchema,
         handler: createTask
+    });
+
+    app.withTypeProvider<ZodTypeProvider>().route({
+        method: "GET",
+        url: "/tasks/:project_id",
+        schema: listTaskProjectIdSchema,
+        handler: listTaskProject_id
     })
 }
