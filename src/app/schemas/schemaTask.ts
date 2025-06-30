@@ -11,7 +11,7 @@ export const createTaskSchema = {
     }),
     response: {
         201: z.object({
-            success: z.boolean()
+            success: z.string()
         })
     }
 }
@@ -37,7 +37,7 @@ export const listTaskProjectIdSchema = {
     response: {
         200: z.object({
             success: z.string(),
-            result: z.array(z.object({
+            data: z.array(z.object({
                 id: z.number(),
                 project_id: z.number(),
                 title: z.string(),
@@ -46,6 +46,41 @@ export const listTaskProjectIdSchema = {
                 priority: z.string(),
                 created_at: z.date()
             }))
+        })
+    }
+}
+
+export const udpateTaskSchema = {
+    body: z.object({
+        id: z.number(),
+        title: z.string().min(4).max(100).describe("Title Task").optional(),
+        description: z.string().min(10).max(500).describe("Description Task").optional(),
+        status: z.enum(['todo', 'doing', 'done']).optional(),
+        priority: z.enum(['low', 'medium', 'high']).optional()
+    }),
+    response: {
+        200: z.object({
+            success: z.string(),
+            data: z.array(z.object({
+                id: z.number(),
+                project_id: z.number(),
+                title: z.string(),
+                description: z.string(),
+                status: z.string(),
+                priority: z.string(),
+                created_at: z.date()
+            }))
+        })
+    }
+}
+
+export const deleteTaskSchema = {
+    params: z.object({
+        id: z.string().transform(Number)
+    }),
+    response: {
+        200: z.object({
+            success: z.string(),
         })
     }
 }
