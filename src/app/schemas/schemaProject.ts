@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const criarProjetoSchema = {
+export const createProjectSchema = {
     body: z.object({
         name: z.string().min(4).max(100).describe("Name Project"),
         description: z.string().min(10).max(500).describe("Description Project")
@@ -12,7 +12,7 @@ export const criarProjetoSchema = {
     }
 }
 
-export const listarProjetosSchema = {
+export const listProjectSchema = {
     response: {
         200: z.array(z.object({
             id: z.number(),

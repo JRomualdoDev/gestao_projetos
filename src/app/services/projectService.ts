@@ -1,6 +1,6 @@
 import { db } from "../../config/database.ts";
 
-export async function listarTodosProjetos() {
+export async function listAllProjects() {
 
     const client = await db.connect()
 
@@ -16,7 +16,7 @@ export async function listarTodosProjetos() {
     }
 }
 
-export async function criarProjeto(req: any, reply: any) {
+export async function newProject(req: any, reply: any) {
 
     const name = req.body.name
     const description = req.body.description
@@ -29,6 +29,7 @@ export async function criarProjeto(req: any, reply: any) {
         return reply.status(201).send({ success: true })
     } catch (error) {
         console.log(error)
+        return reply.status(500).send({ error: 'Erro interno do servidor' })
     }
     finally {
         client.release()

@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify'
-import routes from './app/routers/projetos.ts'
+import routes from './app/routers/routes.ts'
 import postgres from '../src/plugins/postgres.ts'
 import { setDb } from './config/database.ts'
 
