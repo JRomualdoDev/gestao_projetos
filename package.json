@@ -4,6 +4,7 @@
     "start": "fastify start -P -w -l debug ./src/server.ts -p 3000"
   },
   "dependencies": {
+    "@fastify/cors": "^11.0.1",
     "@fastify/postgres": "^6.0.2",
     "dotenv": "^17.0.0",
     "fastify": "^5.4.0",

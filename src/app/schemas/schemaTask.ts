@@ -18,15 +18,20 @@ export const createTaskSchema = {
 
 export const listTaskSchema = {
     response: {
-        200: z.array(z.object({
-            id: z.number(),
-            project_id: z.number(),
-            title: z.string(),
-            description: z.string(),
-            status: z.string(),
-            priority: z.string(),
-            created_at: z.date()
-        }))
+        200: z.object({
+            data: z.array(z.object({
+                id: z.number(),
+                title: z.string(),
+                description: z.string(),
+                status: z.string(),
+                priority: z.string(),
+                created_at: z.date(),
+                updated_at: z.date()
+            })),
+            success: z.boolean().optional(),
+            message: z.string().optional(),
+            errors: z.array(z.string()).optional()
+        })
     }
 }
 

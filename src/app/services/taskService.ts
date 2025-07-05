@@ -1,3 +1,4 @@
+import { success } from "zod/v4";
 import { db } from "../../config/database.ts";
 
 export async function listAllTasks() {
@@ -7,7 +8,10 @@ export async function listAllTasks() {
     try {
         const result = await client.query('SELECT * FROM tasks ORDER BY created_at DESC')
         console.log(result.rows)
-        return result.rows
+        return {
+            data: result.rows,
+            success: true,
+        }
     } catch (error) {
         console.log(error)
     }
